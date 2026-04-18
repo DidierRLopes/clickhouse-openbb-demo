@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Query
 
-from core import register_widget, cached_query
+from core import register_widget, async_cached_query
 
 router = APIRouter()
 
@@ -30,8 +30,8 @@ LIMIT_PARAM = {
 
 
 @router.get("/nyc_zones_list")
-def nyc_zones_list():
-    data = cached_query("""
+async def nyc_zones_list():
+    data = await async_cached_query("""
         SELECT pickup_ntaname AS zone
         FROM nyc_taxi.trips_small
         WHERE pickup_ntaname != ''
@@ -62,9 +62,9 @@ def zone_filter(zone: str) -> str:
     "params": [ZONE_PARAM],
 })
 @router.get("/nyc_trip_metrics")
-def nyc_trip_metrics(zone: str = Query("")):
+async def nyc_trip_metrics(zone: str = Query("")):
     flt = zone_filter(zone)
-    data = cached_query(f"""
+    data = await async_cached_query(f"""
         SELECT
             round(avg(fare_amount), 2) AS avg_fare,
             round(avg(trip_distance), 2) AS avg_distance,
@@ -99,9 +99,9 @@ def nyc_trip_metrics(zone: str = Query("")):
     },
 })
 @router.get("/nyc_trips_by_hour")
-def nyc_trips_by_hour(zone: str = Query("")):
+async def nyc_trips_by_hour(zone: str = Query("")):
     flt = zone_filter(zone)
-    return cached_query(f"""
+    return await async_cached_query(f"""
         SELECT
             toHour(pickup_datetime) AS hour,
             count() AS trips,
@@ -145,8 +145,8 @@ def nyc_trips_by_hour(zone: str = Query("")):
     },
 })
 @router.get("/nyc_trips_per_zone")
-def nyc_trips_per_zone(limit: int = Query(20), zone: str = Query("")):
-    return cached_query(f"""
+async def nyc_trips_per_zone(limit: int = Query(20), zone: str = Query("")):
+    return await async_cached_query(f"""
         SELECT
             pickup_ntaname AS zone,
             count() AS trips
@@ -189,8 +189,8 @@ def nyc_trips_per_zone(limit: int = Query(20), zone: str = Query("")):
     },
 })
 @router.get("/nyc_avg_fare_per_zone")
-def nyc_avg_fare_per_zone(limit: int = Query(20), zone: str = Query("")):
-    return cached_query(f"""
+async def nyc_avg_fare_per_zone(limit: int = Query(20), zone: str = Query("")):
+    return await async_cached_query(f"""
         SELECT
             pickup_ntaname AS zone,
             round(avg(fare_amount), 2) AS avg_fare
@@ -221,9 +221,9 @@ def nyc_avg_fare_per_zone(limit: int = Query(20), zone: str = Query("")):
     },
 })
 @router.get("/nyc_fare_distribution")
-def nyc_fare_distribution(zone: str = Query("")):
+async def nyc_fare_distribution(zone: str = Query("")):
     flt = zone_filter(zone)
-    data = cached_query(f"""
+    return await async_cached_query(f"""
         SELECT
             concat('$', toString(toUInt32(floor(fare_amount / 5) * 5)), '-$', toString(toUInt32(floor(fare_amount / 5) * 5 + 5))) AS fare_range,
             count() AS trips,
@@ -235,4 +235,3 @@ def nyc_fare_distribution(zone: str = Query("")):
         GROUP BY fare_range, floor(fare_amount / 5)
         ORDER BY floor(fare_amount / 5)
     """)
-    return data

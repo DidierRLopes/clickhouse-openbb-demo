@@ -1,3 +1,4 @@
+import asyncio
 import json
 from pathlib import Path
 
@@ -12,8 +13,8 @@ app.include_router(nyc_router)
 
 
 @app.on_event("startup")
-def startup():
-    warm_cache()
+async def startup():
+    asyncio.create_task(warm_cache())
 
 THUMBNAILS_DIR = Path(__file__).parent / "thumbnails"
 

@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from core import register_widget, cached_query
+from core import register_widget, async_cached_query
 
 router = APIRouter()
 
@@ -14,12 +14,12 @@ router = APIRouter()
     "source": "UK Land Registry",
 })
 @router.get("/uk_price_metrics")
-def uk_price_metrics():
-    overview = cached_query("""
+async def uk_price_metrics():
+    overview = await async_cached_query("""
         SELECT round(avg(price)) AS avg_price, count() AS total_transactions
         FROM uk.uk_price_paid
     """)
-    yoy = cached_query("""
+    yoy = await async_cached_query("""
         SELECT toYear(date) AS year, round(avg(price)) AS avg_price
         FROM uk.uk_price_paid
         GROUP BY year ORDER BY year DESC LIMIT 2
@@ -56,8 +56,8 @@ def uk_price_metrics():
     },
 })
 @router.get("/uk_avg_price_by_year")
-def uk_avg_price_by_year():
-    return cached_query("""
+async def uk_avg_price_by_year():
+    return await async_cached_query("""
         SELECT
             toYear(date) AS year,
             round(avg(price)) AS avg_price,
@@ -86,8 +86,8 @@ def uk_avg_price_by_year():
     },
 })
 @router.get("/uk_top_towns")
-def uk_top_towns():
-    data = cached_query("""
+async def uk_top_towns():
+    data = await async_cached_query("""
         SELECT
             town,
             round(avg(price)) AS avg_price,
@@ -125,8 +125,8 @@ def uk_top_towns():
     },
 })
 @router.get("/uk_price_by_type")
-def uk_price_by_type():
-    return cached_query("""
+async def uk_price_by_type():
+    return await async_cached_query("""
         SELECT
             toYear(date) AS year,
             round(avgIf(price, type = 'detached')) AS detached,
