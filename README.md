@@ -4,8 +4,17 @@ Explore ClickHouse sample datasets (UK Housing Prices & NYC Taxi Trips) inside [
 
 ## Datasets
 
-- **UK Housing Prices** — 27M+ property transactions from the UK Land Registry (1995–present)
-- **NYC Taxi Trips** — 3M+ taxi rides with fares, distances, and pickup zones
+### UK Housing Prices
+
+27M+ property transactions from the UK Land Registry (1995–present)
+
+<img width="800" alt="CleanShot 2026-04-18 at 17 34 40@2x" src="https://github.com/user-attachments/assets/91f13940-3640-4a9e-aff9-cef4e7431fff" />
+
+### NYC Taxi Trips
+
+3M+ taxi rides with fares, distances, and pickup zones
+
+<img width="800" alt="CleanShot 2026-04-18 at 17 34 24@2x" src="https://github.com/user-attachments/assets/ad3bda42-f818-4c86-91ae-0f6e20d3b1b1" />
 
 ## Setup
 
