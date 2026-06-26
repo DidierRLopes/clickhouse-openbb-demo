@@ -65,7 +65,7 @@ The server starts on `http://localhost:7781`.
 
 ### 6. Connect to OpenBB Workspace
 
-1. Go to [pro.openbb.co](https://pro.openbb.co/app/connections)
+1. Go to [pro.openbb.co/app/connections](https://pro.openbb.co/app/connections)
 2. Add a custom backend with URL `http://localhost:7781`
 
 <img width="1394" height="781" alt="CleanShot 2026-06-26 at 17 27 23" src="https://github.com/user-attachments/assets/d9ab278c-dbd5-4bee-9edc-c602a1ab45b9" />
