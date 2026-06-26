@@ -65,6 +65,12 @@ The server starts on `http://localhost:7781`.
 
 ### 6. Connect to OpenBB Workspace
 
-1. Go to [pro.openbb.co](https://pro.openbb.co)
+1. Go to [pro.openbb.co](https://pro.openbb.co/app/connections)
 2. Add a custom backend with URL `http://localhost:7781`
-3. Two dashboards will appear: **UK Housing Prices** and **NYC Taxi Trips**
+
+<img width="1394" height="781" alt="CleanShot 2026-06-26 at 17 27 23" src="https://github.com/user-attachments/assets/d9ab278c-dbd5-4bee-9edc-c602a1ab45b9" />
+
+3. Two dashboards will appear in the [Apps page](https://pro.openbb.co/app): **UK Housing Prices** and **NYC Taxi Trips**
+
+<img width="809" height="535" alt="CleanShot 2026-06-26 at 17 28 23" src="https://github.com/user-attachments/assets/3077399b-db18-496f-9343-0f73581fa19d" />
+
